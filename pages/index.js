@@ -8,21 +8,23 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import useFetch from "use-http";
 import { TiClipboard } from "react-icons/ti";
 
 export default function Home() {
   const inputRef = useRef(null);
   const shortApi = useFetch("/api/short");
-
+  const [host, setHost] = useState("");
   const shortLink = () => {
     let link = inputRef.current.value;
     shortApi.post({ link }).then((res) => {
       console.log(res);
     });
   };
-  1;
+  useEffect(() => {
+    setHost(window.location.host);
+  }, []);
   return (
     <Box maxW="lg" m="0 auto">
       <Box mt={12} bg="gray.100" rounded="lg">
@@ -53,9 +55,7 @@ export default function Home() {
               <Text>http://localhost:3000/{shortApi.data?.code}</Text>
             </Box>
             <Spacer />
-            <CopyToClipboard
-              text={`http://localhost:3000/${shortApi.data?.code}`}
-            >
+            <CopyToClipboard text={`host/${shortApi.data?.code}`}>
               <Box fontSize={"3xl"} cursor={"pointer"}>
                 <TiClipboard />
               </Box>
