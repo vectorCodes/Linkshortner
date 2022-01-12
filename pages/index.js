@@ -52,10 +52,12 @@ export default function Home() {
           </Button>
           <HStack>
             <Box mt={4}>
-              <Text>http://localhost:3000/{shortApi.data?.code}</Text>
+              <Text>
+                {host}/{shortApi.data?.code}
+              </Text>
             </Box>
             <Spacer />
-            <CopyToClipboard text={`host/${shortApi.data?.code}`}>
+            <CopyToClipboard text={`${host}/${shortApi.data?.code}`}>
               <Box fontSize={"3xl"} cursor={"pointer"}>
                 <TiClipboard />
               </Box>
